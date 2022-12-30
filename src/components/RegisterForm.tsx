@@ -2,15 +2,31 @@ import React from 'react';
 import { useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
 
+interface FormValue {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+
 export default function RegisterForm() {
-  const [formValue, setFormValue] = useState({
+  const [formValue, setFormValue] = useState<FormValue>({
     username: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
+
   function handleSubmit(e:React.FormEvent) {
     e.preventDefault();
+  }
+
+  const handleChange = (e:React.FormEvent<HTMLInputElement>) =>{
+    const value = e.currentTarget.value;
+    const name = e.currentTarget.name;
+    setFormValue({...formValue, [name]: value })
+    console.log(formValue)
   }
 
   return (
@@ -32,17 +48,31 @@ export default function RegisterForm() {
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
                 <label htmlFor="email-address" className="sr-only">
+                  User Name
+                </label>
+                <input
+                  value={formValue.username}
+                  onChange={handleChange}
+                  id="username"
+                  name="username"
+                  type="username"
+                  autoComplete="username"
+                  required
+                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  placeholder="User Name"
+                />
+                <label htmlFor="email-address" className="sr-only">
                   Email address
                 </label>
                 <input
                   value={formValue.email}
-                  
+                  onChange={handleChange}
                   id="email-address"
                   name="email"
                   type="email"
                   autoComplete="email"
                   required
-                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="relative block w-full appearance-none  border border-t-0 border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="Email address"
                 />
               </div>
@@ -51,6 +81,8 @@ export default function RegisterForm() {
                   Password
                 </label>
                 <input
+                  value={formValue.password}
+                  onChange={handleChange}
                   id="password"
                   name="password"
                   type="password"
@@ -61,14 +93,16 @@ export default function RegisterForm() {
                 />
               </div>
               <div>
-                <label htmlFor="password" className="sr-only">
+                <label htmlFor="confirmPassword" className="sr-only">
                   Confirm Password
                 </label>
                 <input
-                  id="confirm-password"
-                  name="confirm-password"
+                  value={formValue.confirmPassword}
+                  onChange={handleChange}
+                  id="confirmPassword"
+                  name="confirmPassword"
                   type="password"
-                  autoComplete="current-password"
+                  autoComplete="confirmPassword"
                   required
                   className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="Confirm Password"
