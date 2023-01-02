@@ -26,7 +26,6 @@ export default function RegisterForm() {
     if(formValue.password === formValue.confirmPassword){
       const {username, password, email} = formValue;
       register(username,password,email).then((res)=>{
-        console.log('hello');
         navigate('/login', {replace: true})
       });
     }

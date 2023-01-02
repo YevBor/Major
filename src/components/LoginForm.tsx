@@ -25,7 +25,7 @@ export default function LoginForm() {
       .then((data)=> {
         if(data.jwt){
           setFormValue({email: '', password:''});
-          navigate('/profile', {replace: true});
+          navigate('/home', {replace: true});
         }
       })
       .catch(err => console.log(err));

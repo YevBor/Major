@@ -11,7 +11,7 @@ import { checkToken } from './components/majorAuth';
 
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [userData, setUserData] = useState({
     username: '',
     email: ''
@@ -43,10 +43,10 @@ function App() {
 
     <Routes>     
       <Route path="/" element={loggedIn ? <Navigate to="/home" replace/>:<Navigate to="/login" replace />} />
-      <Route path="login" element={<LoginForm/>}  />
-      <Route path="register" element={<RegisterForm/>}  />
-      <Route path="home" element={<ProtectedRoute element={Home} loggedIn={loggedIn}/>}/>
-      <Route path="profile" element={<ProtectedRoute element={Profile} loggedIn={loggedIn}/>} />
+      <Route path="login" element={<LoginForm />}  />
+      <Route path="register" element={<RegisterForm />}  />
+      <Route path="home" element={<ProtectedRoute element={Home} loggedIn={loggedIn} />}/>
+      <Route path="profile" element={<ProtectedRoute element={Profile} userData={userData} loggedIn={loggedIn}/>} />
     </Routes>
   </div>
   )
