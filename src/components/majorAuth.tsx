@@ -45,3 +45,16 @@ export const authorize = (identifier:string, password:string)=>{
     .catch(err=> console.log(err))
 }
 
+export const checkToken = (token: string) => {
+    return fetch(`${BASE_URL}/users/me`,{
+        method:'GET',
+        headers:{
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(res => res.json())
+    .then(data=> data)
+}
+
