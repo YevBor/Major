@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
+import {register} from './majorAuth';
+import { useNavigate } from 'react-router-dom';
 
 interface FormValue {
   username: string;
@@ -17,16 +19,22 @@ export default function RegisterForm() {
     password: '',
     confirmPassword: '',
   });
+  const navigate = useNavigate();
 
   function handleSubmit(e:React.FormEvent) {
     e.preventDefault();
+    if(formValue.password === formValue.confirmPassword){
+      const {username, password, email} = formValue;
+      register(username,password,email).then((res)=>{
+        navigate('/login', {replace: true})
+      });
+    }
   }
 
   const handleChange = (e:React.FormEvent<HTMLInputElement>) =>{
     const value = e.currentTarget.value;
     const name = e.currentTarget.name;
     setFormValue({...formValue, [name]: value })
-    console.log(formValue)
   }
 
   return (
