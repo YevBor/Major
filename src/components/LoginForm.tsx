@@ -2,6 +2,12 @@ import { authorize } from './majorAuth';
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from './AppContext';
+
+interface MyDivProps {
+  loggedIn: boolean;
+  setLoggedIn:any;
+}
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -9,6 +15,9 @@ export default function LoginForm() {
     email:'',
     password:''
   });
+
+  const value = React.useContext(AppContext);
+  
 
   const handleChange = (e:React.FormEvent<HTMLInputElement>) =>{
     const value = e.currentTarget.value;
@@ -25,6 +34,7 @@ export default function LoginForm() {
       .then((data)=> {
         if(data.jwt){
           setFormValue({email: '', password:''});
+          value.setLoggedIn(true);
           navigate('/home', {replace: true});
         }
       })

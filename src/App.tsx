@@ -8,10 +8,11 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './components/Profile';
 import Home from './components/Home';
 import { checkToken } from './components/majorAuth';
+import { AppContext } from './components/AppContext';
 
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState({
     username: '',
     email: ''
@@ -40,14 +41,15 @@ function App() {
 
   return (
   <div>
-
-    <Routes>     
-      <Route path="/" element={loggedIn ? <Navigate to="/home" replace/>:<Navigate to="/login" replace />} />
-      <Route path="login" element={<LoginForm />}  />
-      <Route path="register" element={<RegisterForm />}  />
-      <Route path="home" element={<ProtectedRoute element={Home} loggedIn={loggedIn} />}/>
-      <Route path="profile" element={<ProtectedRoute element={Profile} userData={userData} loggedIn={loggedIn}/>} />
-    </Routes>
+    <AppContext.Provider value={{loggedIn,setLoggedIn,userData, setUserData}} > 
+      <Routes>     
+        <Route path="/" element={loggedIn ? <Navigate to="/home" replace/>:<Navigate to="/login" replace />} />
+        <Route path="login" element={<LoginForm />}  />
+        <Route path="register" element={<RegisterForm />}  />
+        <Route path="home" element={<ProtectedRoute element={Home} />}/>
+        <Route path="profile" element={<ProtectedRoute element={Profile} userData={userData} />} />
+      </Routes>
+    </AppContext.Provider>
   </div>
   )
 }
