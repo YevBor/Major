@@ -136,10 +136,10 @@ export default function RegisterForm() {
 
               <div className="text-sm">
                 <a
-                  href="#"
+                  href="/login"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
-                  Forgot your password?
+                  Log In?
                 </a>
               </div>
             </div>

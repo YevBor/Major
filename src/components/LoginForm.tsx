@@ -109,8 +109,8 @@ export default function LoginForm() {
               </div>
 
               <div className="text-sm">
-                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                  Forgot your password?
+                <a href="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
+                  Register?
                 </a>
               </div>
             </div>
